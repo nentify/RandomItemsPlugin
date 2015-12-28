@@ -1,7 +1,6 @@
 package me.nentify.randomitems;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -9,10 +8,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
 public class RandomItems extends JavaPlugin {
-
     private Random random = new Random();
     private Map<Integer, ItemStack> randomItems = new HashMap<>();
     private int total;
@@ -57,8 +57,8 @@ public class RandomItems extends JavaPlugin {
                 sender.sendMessage(ChatColor.RED + "Player " + args[0] + " could not be found");
                 return true;
             }
-            return false;
         }
+        
         return false;
     }
 }
