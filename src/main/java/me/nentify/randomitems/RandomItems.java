@@ -62,7 +62,11 @@ public class RandomItems extends JavaPlugin {
 
                         if (chance < chanceTotal) {
                             ItemStack item = randomItem.getItem();
-                            item.setAmount(random.nextInt(3) + 1);
+                            if (item.getTypeId() == 4758) {
+                                item.setAmount(1);
+                            } else {
+                                item.setAmount(random.nextInt(3) + 1);
+                            }
                             player.getInventory().addItem(item);
                             player.sendMessage(ChatColor.GREEN + "You have received " + item.getAmount() + " " + item.getType().name());
                             break;
