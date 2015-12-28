@@ -1,0 +1,11 @@
+name: RandomItems
+main: me.nentify.randomitems.RandomItems
+version: 1.0-SNAPSHOT
+authors: [Nentify]
+website: http://nentify.me
+commands:
+   randomitems:
+      description: Give a user a random item.
+      usage: /<command> [player]
+      permission: randomitems.use
+      permission-message: You don't have randomitems.use
