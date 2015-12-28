@@ -20,11 +20,27 @@ public class RandomItems extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        randomItems.put(20, new ItemStack(Material.COBBLESTONE, 20));
-        randomItems.put(10, new ItemStack(578, 1, (short) 6));
-        randomItems.put(30, new ItemStack(Material.ACACIA_STAIRS));
-        randomItems.put(5, new ItemStack(4266, 6));
-        randomItems.put(2, new ItemStack(Material.DIAMOND, 65));
+        randomItems.add(new RandomItem(60, new ItemStack(Material.DIRT)));
+        randomItems.add(new RandomItem(60, new ItemStack(Material.SAND)));
+        randomItems.add(new RandomItem(20, new ItemStack(Material.GLOWSTONE_DUST)));
+        randomItems.add(new RandomItem(30, new ItemStack(Material.IRON_INGOT)));
+        randomItems.add(new RandomItem(20, new ItemStack(Material.GOLD_INGOT)));
+        randomItems.add(new RandomItem(6, new ItemStack(Material.DIAMOND)));
+        randomItems.add(new RandomItem(4, new ItemStack(Material.EMERALD)));
+
+        randomItems.add(new RandomItem(25, new ItemStack(4356))); // Forestry Copper Ingot
+        randomItems.add(new RandomItem(22, new ItemStack(4357))); // Forestry Tin Ingot
+        randomItems.add(new RandomItem(40, new ItemStack(4255))); // IC2 Single-Use Battery
+        randomItems.add(new RandomItem(10, new ItemStack(4201, 1, (short) 9))); // IC2 Glass Fibre Cables
+        randomItems.add(new RandomItem(15, new ItemStack(567, 1, (short) 16))); // Project: Red Inverted White Lamp
+
+        ItemStack premium = new ItemStack(4758, 1, (short) 37);
+        ItemMeta meta = premium.getItemMeta();
+        meta.setDisplayName(ChatColor.GOLD + "Premium Winner!");
+        meta.setLore(Arrays.asList(ChatColor.LIGHT_PURPLE + "Contact an" + ChatColor.RED + " Owner " + ChatColor.LIGHT_PURPLE + "to redeem", ChatColor.LIGHT_PURPLE + "1 week of premium for free"));
+        premium.setItemMeta(meta);
+
+        randomItems.add(new RandomItem(1, premium));
 
         for (RandomItem randomItem : randomItems) {
             total += randomItem.getProbability();
