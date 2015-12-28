@@ -6,15 +6,16 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class RandomItems extends JavaPlugin {
     private Random random = new Random();
-    private Map<Integer, ItemStack> randomItems = new HashMap<>();
+    private ArrayList<RandomItem> randomItems = new ArrayList<RandomItem>();
     private int total;
 
     @Override
@@ -25,8 +26,8 @@ public class RandomItems extends JavaPlugin {
         randomItems.put(5, new ItemStack(4266, 6));
         randomItems.put(2, new ItemStack(Material.DIAMOND, 65));
 
-        for (Integer key : randomItems.keySet()) {
-            total += key;
+        for (RandomItem randomItem : randomItems) {
+            total += randomItem.getProbability();
         }
     }
 
@@ -40,11 +41,12 @@ public class RandomItems extends JavaPlugin {
                     int chance = random.nextInt(total);
 
                     int chanceTotal = 0;
-                    for (Map.Entry<Integer, ItemStack> randomItem : randomItems.entrySet()) {
-                        chanceTotal += randomItem.getKey();
+                    for (RandomItem randomItem : randomItems) {
+                        chanceTotal += randomItem.getProbability();
 
                         if (chance < chanceTotal) {
-                            ItemStack item = randomItem.getValue();
+                            ItemStack item = randomItem.getItem();
+                            item.setAmount(random.nextInt(2) + 1);
                             player.getInventory().addItem(item);
                             player.sendMessage(ChatColor.GREEN + "You have received " + item.getAmount() + " " + item.getType().name());
                             break;
@@ -58,7 +60,7 @@ public class RandomItems extends JavaPlugin {
                 return true;
             }
         }
-        
+
         return false;
     }
 }
