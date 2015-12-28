@@ -8,11 +8,26 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.*;
+
 public class RandomItems extends JavaPlugin {
+
+    private Random random = new Random();
+    private Map<Integer, ItemStack> items = new HashMap<>();
+    private int total;
 
     @Override
     public void onEnable() {
         getLogger().info("Hello from RandomItems!");
+        items.put(20, new ItemStack(Material.COBBLESTONE, 20));
+        items.put(10, new ItemStack(578, 1, (short) 6));
+        items.put(30, new ItemStack(Material.ACACIA_STAIRS));
+        items.put(5, new ItemStack(4266, 6));
+        items.put(2, new ItemStack(Material.DIAMOND, 65));
+
+        for (Integer key : items.keySet()) {
+            total += key;
+        }
     }
 
     @Override
@@ -28,7 +43,19 @@ public class RandomItems extends JavaPlugin {
                 Player player = getServer().getPlayer(args[0]);
 
                 if (player != null) {
-                    player.getInventory().addItem(new ItemStack(Material.COBBLESTONE));
+                    int chance = random.nextInt(total);
+
+                    int chanceTotal = 0;
+                    for (Map.Entry<Integer, ItemStack> item : items.entrySet()) {
+                        chanceTotal += item.getKey();
+
+                        if (chance < chanceTotal) {
+                            player.getInventory().addItem(item.getValue());
+                            player.sendMessage("You have received " + item.getValue());
+                            break;
+                        }
+                    }
+
                     return true;
                 }
 
